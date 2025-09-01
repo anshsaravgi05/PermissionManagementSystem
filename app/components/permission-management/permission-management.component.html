@@ -1,0 +1,40 @@
+
+
+<div class="container">
+  <div class="header-container">
+    <h2>Permission Management</h2>
+    <button class="back-btn" (click)="goBack()">Back to Users</button>
+  </div>
+  
+  <div class="bar">
+    <div class="box">
+      <span class="stat-number">{{ roles.length }}</span>
+      <span class="stat-label">Roles</span>
+    </div>
+    <div class="box">
+      <span class="stat-number">{{ permissions.length }}</span>
+      <span class="stat-label">Permissions</span>
+    </div>
+    <button class="save-btn" (click)="saveChanges()">Save Changes</button>
+  </div>
+  
+  <table class="permission-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th *ngFor="let perm of permissions">{{ perm.perm_name }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td>{{ role.role_name }}</td>
+        <td *ngFor="let perm of permissions">
+          <input 
+            type="checkbox" 
+            [checked]="permissionsMatrix[role.role_id] && permissionsMatrix[role.role_id][perm.perm_id]?.is_allowed"
+            (change)="updatePermission(role.role_id, perm.perm_id, $event)">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

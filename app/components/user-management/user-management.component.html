@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="header-container">
+    <h2>User Management</h2>
+    <button class="manage-btn" (click)="goToPermissions()" >Manage Permissions</button>
+  </div>
+  
+  <div class="filter-bar">
+    <button 
+      [class.active]="selectedRole === 'All Users'"
+      (click)="filterByRole('All Users', null)">
+      All Users
+    </button>
+    <button 
+      *ngFor="let role of roles" 
+      [class.active]="selectedRole === role.role_name"
+      (click)="filterByRole(role.role_name, role.role_id)">
+      {{ role.role_name }}
+    </button>
+  </div>
+  
+  <div class="user-list">
+    <h3>{{ selectedRole }}</h3>
+    <div class="user-cards-container">
+      <div class="user-card" *ngFor="let user of users">
+        <div class="user-initials">{{ getInitial(user.name) }}</div>
+        <div class="user-info">
+          <h4>{{ user.name }}</h4>
+          <span class="user-role">{{ user.role_name }}</span>
+          <p class="user-email">{{ user.email }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
